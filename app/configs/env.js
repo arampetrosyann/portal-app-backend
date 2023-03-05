@@ -1,0 +1,16 @@
+import dotenv from 'dotenv'
+
+dotenv.config({ path: `${process.cwd()}/.env` })
+
+export default {
+  NODE_ENV: process.env.NODE_ENV,
+  PORT: process.env.PORT,
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRATION_TIME: process.env.ACCESS_TOKEN_EXPIRATION_TIME,
+  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_EXPIRATION_TIME: process.env.REFRESH_TOKEN_EXPIRATION_TIME,
+  MYSQLDB_DATABASE: process.env.MYSQLDB_DATABASE,
+  MYSQLDB_USERNAME: process.env.MYSQLDB_USERNAME,
+  MYSQLDB_USER_PASSWORD: process.env.MYSQLDB_USER_PASSWORD,
+  MYSQLDB_HOSTNAME: process.env.MYSQLDB_HOSTNAME,
+}

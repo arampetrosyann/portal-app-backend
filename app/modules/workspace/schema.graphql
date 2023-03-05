@@ -1,0 +1,35 @@
+type Query {
+  workspaceById(id: Int!): Workspace
+  workspaces: WorkspacesRes
+  workspaceSubDomainSuggestion(subDomain: String!): String
+}
+
+type Mutation {
+  createWorkspace(data: CreateWorkspaceInput!): Workspace
+  updateWorkspace(id: Int!, data: UpdateWorkspaceInput!): Workspace
+  deleteWorkspace(id: Int!): Boolean
+}
+
+type Workspace {
+  id: Int
+  name: String
+  subDomain: String
+  userId: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type WorkspacesRes {
+  data: [Workspace]
+  count: Int
+}
+
+input CreateWorkspaceInput {
+  name: String!
+  subDomain: String!
+}
+
+input UpdateWorkspaceInput {
+  name: String
+  subDomain: String
+}

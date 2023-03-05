@@ -1,0 +1,62 @@
+{
+  "name": "slack-app-backend",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "main": "app/index.js",
+  "author": "Aram Petrosyan",
+  "keywords": [
+    "task",
+    "slack"
+  ],
+  "engines": {
+    "node": ">=16.x"
+  },
+  "scripts": {
+    "start": "node app/index.js",
+    "dev": "nodemon app/index.js",
+    "postinstall": "husky install",
+    "lint-fix": "eslint --fix"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {
+    "@graphql-tools/merge": "^8.3.18",
+    "@graphql-tools/schema": "^9.0.16",
+    "apollo-server-express": "^3.12.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "glob": "^9.2.1",
+    "graphql": "^16.6.0",
+    "graphql-passport": "^0.6.5",
+    "graphql-scalars": "^1.20.1",
+    "joi": "^17.8.3",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.2.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "sequelize": "^6.29.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "nodemon": "^2.0.21",
+    "prettier": "^2.8.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,json}": [
+      "yarn lint-fix"
+    ]
+  }
+}

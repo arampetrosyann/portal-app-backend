@@ -1,0 +1,45 @@
+type Query {
+  currentUer: User
+}
+
+type Mutation {
+  signIn(data: SignInInput): AuthRes
+  signUp(data: SignUpInput): AuthRes
+  refreshToken(refreshToken: String!): Token
+}
+
+type User {
+  id: Int!
+  fullName: String
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Token {
+  accessToken: String!
+  refreshToken: String!
+  tokenType: TokenTypeEnum!
+}
+
+type AuthRes {
+  user: User
+  token: Token
+}
+
+input SignUpInput {
+  fullName: String!
+  email: String!
+  password: String!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+enum TokenTypeEnum {
+  BEARER
+}
+
+scalar DateTime
