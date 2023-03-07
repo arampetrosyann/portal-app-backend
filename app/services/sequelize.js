@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
   {
     host: env.MYSQLDB_HOSTNAME,
     dialect: 'mysql',
-    logging: env.NODE_ENV === ENVS.development,
+    logging: env.NODE_ENV === ENVS.development && console.log,
   },
 )
 

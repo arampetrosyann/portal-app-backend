@@ -1,5 +1,5 @@
 type Query {
-  currentUer: User
+  currentUser: User
 }
 
 type Mutation {

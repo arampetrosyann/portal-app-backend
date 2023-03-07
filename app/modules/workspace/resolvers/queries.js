@@ -37,10 +37,12 @@ export const workspaces = async (_parent, args, context) => {
 }
 
 export const workspaceSubDomainSuggestion = async (_parent, args, context) => {
+  const { user } = context
+
   const { data: { subDomain } = {}, error } = await validateData(args, context)
   if (error) throw new InvalidDataError()
 
-  const suggestion = await getWorkspaceSubDomainSuggestion(subDomain)
+  const suggestion = await getWorkspaceSubDomainSuggestion(subDomain, user.id)
 
   return suggestion
 }

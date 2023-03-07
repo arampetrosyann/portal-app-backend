@@ -15,15 +15,19 @@ export const getWorkspaces = async (options) => {
   return workspaces
 }
 
-export const getWorkspaceSubDomainSuggestion = async (subDomain) => {
+export const getWorkspaceSubDomainSuggestion = async (subDomain, userId) => {
   let index = 0
   let data = null
+  let count = 0
 
   do {
+    if (count === 22) break
+
     data = await sequelize.query(
       `
         SELECT freeSubDomain FROM (
-          SELECT ${`"${subDomain}${++index}"`} AS freeSubDomain
+          SELECT ${`"${subDomain}"`} AS freeSubDomain
+          UNION SELECT ${`"${subDomain}${++index}"`} AS freeSubDomain
           UNION SELECT ${`"${subDomain}${++index}"`} AS freeSubDomain
           UNION SELECT ${`"${subDomain}${++index}"`} AS freeSubDomain
           UNION SELECT ${`"${subDomain}${++index}"`} AS freeSubDomain
@@ -34,7 +38,10 @@ export const getWorkspaceSubDomainSuggestion = async (subDomain) => {
             ++index,
           )}"`} AS freeSubDomain
         ) AS freeSubDomains
-        WHERE freeSubDomain NOT IN (SELECT subDomain FROM Workspaces) LIMIT 1;
+        WHERE freeSubDomain NOT IN (
+          SELECT subDomain FROM Workspaces 
+          WHERE subDomain LIKE "%${subDomain}%" AND Workspaces.userId=${userId}
+          ) LIMIT 1;
     `,
       {
         type: QueryTypes.SELECT,
@@ -42,9 +49,13 @@ export const getWorkspaceSubDomainSuggestion = async (subDomain) => {
         plain: true,
       },
     )
+
+    count++
   } while (!data)
 
-  return data.freeSubDomain
+  const { freeSubDomain } = data
+
+  return freeSubDomain !== subDomain ? freeSubDomain : null
 }
 
 export const addWorkspace = async (data) => {
